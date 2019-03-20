@@ -5,11 +5,31 @@ The main purpose of this application is to develop a general solution for high p
 
 ## Usage
 
+### Prerequisites
+
+This part is only applicable for windows users without local hadoop installation!
+
+* Please apply the solution https://jaceklaskowski.gitbooks.io/mastering-apache-spark/spark-tips-and-tricks-running-spark-windows.html
+
+As a sortlist of the link above
+```
+* download winutil from https://github.com/steveloughran/winutils/blob/master/hadoop-2.7.1/bin/winutils.exe
+* create directory c:\hadoop\bin
+* copy downloaded winutil.exe under c:\hadoop\bin
+* set HADOOP_HOME=c:\hadoop
+* set PATH=%HADOOP_HOME%\bin;%PATH%
+* create directory C:\tmp\hive
+* winutils.exe chmod -R 777 C:\tmp\hive
+* winutils.exe ls -F C:\tmp\hive
+```
+* Path parameters should be compatible with windows. Always start with '/' and all '\' characters must be escaped with '\'. Example output file parameter: "-o /%TEMP%\\par.out"
+
+### Execution
+
 ```
 Clone to your local repository: git clone https://github.com/rdemirkoparan/ParquetGenerator.git
 Change directory: cd ParquetGenerator/
 Compile: mvn compile
-Test: mvn test
 Run: mvn exec:java -Dexec.mainClass="ind.rd.parquet.PartitionedParquetGenerator" -Dexec.args="-i doc/sample.schema"
 ```
 
@@ -17,7 +37,7 @@ Full list of the parameters are listed below;
 
 ```
 Input parameters;
- -i,--inputSchema <arg>        	    Input message schema, requires string as the full path of the schema file
+ -i,--inputSchema <arg>            Input message schema, requires string as the full path of the schema file
  -l,--bufferLimit <arg>         	Number of records to buffer, accepts integer (10, 50, etc), default value is 200
  -m,--memoryLimit <arg>         	Maximum memory buffer while partitioning, requires string as usual memory parameter (1g, 2048m, etc), default value is 1g
  -o,--targetFileName <arg>      	Output file name, requires string as the full path of the partition directory, default value is /tmp/par.out
