@@ -7,11 +7,11 @@ The main purpose of this application is to develop a general solution for high p
 
 ### Prerequisites
 
-This part is only applicable for windows users without local hadoop installation!
+This part is only applicable for Windows users without local Hadoop installation!
 
 * Please apply the solution https://jaceklaskowski.gitbooks.io/mastering-apache-spark/spark-tips-and-tricks-running-spark-windows.html
 
-As a sortlist of the link above
+As a short list of the link above
 ```
 * download winutil from https://github.com/steveloughran/winutils/blob/master/hadoop-2.7.1/bin/winutils.exe
 * create directory c:\hadoop\bin
@@ -22,7 +22,7 @@ As a sortlist of the link above
 * winutils.exe chmod -R 777 C:\tmp\hive
 * winutils.exe ls -F C:\tmp\hive
 ```
-* Path parameters should be compatible with windows. Always start with '/' and all '\' characters must be escaped with '\'. Example output file parameter: "-o /%TEMP%\\par.out"
+* Path parameters should be compatible with Windows. Always start with '/' and all '\' characters must be escaped with '\'. Example output file parameter: "-o /%TEMP%\\par.out"
 
 ### Execution
 
