@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Logger;
 
-
+/**
+ * Data Writer, which consumes records from the buffer
+ */
 public class DataWriter implements Runnable {
-    private BlockingQueue<Group> queue;
+    private final BlockingQueue<Group> queue;
     private int numberOfRecords;
-    private PartitionWriter<Group> partitionWriter;
+    private final PartitionWriter<Group> partitionWriter;
 
     private static final Logger LOGGER = Logger.getLogger(DataWriter.class.getName());
 
@@ -31,7 +33,7 @@ public class DataWriter implements Runnable {
                     try {
                         queue.wait();
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        LOGGER.severe(ex.getMessage());
                     }
                 }
 
@@ -41,10 +43,8 @@ public class DataWriter implements Runnable {
                     }
                     numberOfRecords--;
                     queue.notifyAll();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                } catch (IOException | InterruptedException e) {
+                    LOGGER.severe(e.getMessage());
                 }
             }
         }

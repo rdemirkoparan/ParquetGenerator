@@ -5,6 +5,9 @@ import org.apache.spark.sql.*;
 
 import java.util.logging.Logger;
 
+/**
+ * This class uses spark to create partitions from the temporary file
+ */
 public class PartitionHelper {
 
     private static final Logger LOGGER = Logger.getLogger(PartitionHelper.class.getName());
@@ -24,6 +27,7 @@ public class PartitionHelper {
     public void partitionParquet(){
         Stopwatch stopwatch = Stopwatch.createStarted();
         LOGGER.info("SparkSession creation started!");
+        //create spark session with thread and memory parameters. other configs are for small data related fixes
         final SparkSession sparkSession = SparkSession
                 .builder()
                 .master("local[" + threadCount + "]")
@@ -39,6 +43,7 @@ public class PartitionHelper {
 
         stopwatch = Stopwatch.createStarted();
         LOGGER.info("Partitioning started!");
+        //read from temporary parquet file, add interval column according to user input and write partitioned data to the file system with interval renaming
         sqlContext
                 .read()
                 .parquet(Defaults.temporaryFileName)
@@ -58,7 +63,7 @@ public class PartitionHelper {
                 .parquet("file://" + outFileName);
         LOGGER.info("Partitioning completed in " + stopwatch.stop());
 
-        //TODO remove this validation
+        //this part is for validation of the written records. it may be opened to see the output or closed to save resources
         stopwatch = Stopwatch.createStarted();
         LOGGER.info("Data read started!");
         Dataset<Row> tp = sqlContext.read().parquet("file://" + outFileName);

@@ -1,12 +1,11 @@
 package ind.rd.parquet.util;
 
+import ind.rd.parquet.exception.SchemaValidationException;
 import org.apache.parquet.schema.MessageType;
 import org.apache.parquet.schema.PrimitiveType;
-import ind.rd.parquet.exception.SchemaValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -50,7 +49,7 @@ public class SchemaHelper {
     }
 
     private void parseSchema() {
-        fields.addAll(schema.getColumns().stream().map(columnDescriptor -> new FieldDescriptor(columnDescriptor.getPath()[0], columnDescriptor.getType(), columnDescriptor.getTypeLength())).collect(Collectors.toList()));
+        fields.addAll(schema.getColumns().stream().map(columnDescriptor -> new FieldDescriptor(columnDescriptor.getPath()[0], columnDescriptor.getPrimitiveType().getPrimitiveTypeName(), columnDescriptor.getPrimitiveType().getTypeLength())).collect(Collectors.toList()));
     }
 
     public List<FieldDescriptor> getFields() {
