@@ -1,7 +1,7 @@
 # ParquetGenerator
 Generate Partitioned Parquet with Given Schema and Generated Value According to the Given Schema
 
-The main purpose of this application is to develop a general solution for high performance writing in parallel to multiple parquet files, where partitions are based on a specific time-based interval. The application should be flexible as to support any schema provided by the user.
+The main purpose of this application is to develop a general solution for high performance writing in parallel to multiple parquet files, where partitions are based on a specific time-based interval. The application should be flexible to support any schema provided by the user.
 
 ## Usage
 
@@ -51,7 +51,7 @@ Input parameters;
 There is two test class exists.
 
 * One for evolved to generate data, consume data and verify there is no record left behind
-* Second tester is to verify the partitions
+* The Second tester is to verify the partitions
 
 ```
 mvn test
